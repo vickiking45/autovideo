@@ -1,0 +1,2 @@
+import {NextResponse} from 'next/server';
+export async function POST(req:Request){const{script}=await req.json();if(!script)return NextResponse.json({error:'script required'},{status:400});const checks=[{name:'Politics filter',ok:!(/\b(politics|election|president|prime minister)\b/i.test(script))},{name:'Script present',ok:script.trim().length>80},{name:'Originality reminder',ok:true},{name:'Human approval',ok:false}];return NextResponse.json({checks,ready:checks.every(c=>c.ok)})}
